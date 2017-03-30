@@ -12,35 +12,27 @@
 		
 			function showToDom(path,rPath,parms){
 
-				return ['<p><span>path: </span>',path,'</p>',
-
-									'<p><span>realPath: </span>',rPath,'</p>',
-
-									'<p><span>prams: </span>',parms,'</p>'
-						].join('');
+				return ['<p><span>prams: </span>',parms,'</p>'].join('');
 			}
-			
-
-		
-
+				
 			new Srouter({
 				dom_box:document.getElementById('dom_box'),
 				router:[
-						{path:'/',noFind:true,enter:function(insetDomFn,parms,router){
+						{path:'/',noFind:true,enter:function(insetDomFn,parms){
 							var _strParms = parms ? JSON.stringify(parms) : '';
-							var dom = showToDom(router.path,router.realPath,_strParms);
+							var dom = showToDom(_strParms);
 							
 							insetDomFn(dom);
 						}},
-						{path:'/pageA',enter:function(insetDomFn,parms,router){
+						{path:'/pageA',enter:function(insetDomFn,parms){
 							var _strParms = parms ? JSON.stringify(parms) : '';
-							var dom = showToDom(router.path,router.realPath,_strParms);
+							var dom = showToDom(_strParms);
 
 							insetDomFn(dom);
 						}},
-						{path:'/user/{id}/foo',enter:function(insetDomFn,parms,router){
+						{path:'/user/{id}/foo',enter:function(insetDomFn,parms){
 							var _strParms = parms ? JSON.stringify(parms) : '';
-							var dom = showToDom(router.path,router.realPath,_strParms);
+							var dom = showToDom(_strParms);
 
 							insetDomFn(dom);
 						}},
