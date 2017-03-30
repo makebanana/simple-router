@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>simple router</title>
+</head>
+<a href="#/">/</a>    <a href="#/pageA?id=123&bbb=32">/pageA</a>    <a href="#/user/123/foo">/user/{id}</a>
+<div id="dom_box"></div>
+<body>
+	<script src="simple_router.js"></script>
+	<script>
+			function showToDom(path,rPath,parms){
+
+				return ['<p><span>path: </span>',path,'</p>',
+
+									'<p><span>realPath: </span>',rPath,'</p>',
+
+									'<p><span>prams: </span>',parms,'</p>'
+						].join('');
+			}
+			
+
+		
+
+			new Srouter({
+			dom_box:document.getElementById('dom_box'),
+			router:[
+					{path:'/',enter:function(insetDomFn,parms,router){
+						var _strParms = parms ? JSON.stringify(parms) : '';
+						var dom = showToDom(router.path,router.realPath,_strParms);
+						
+						insetDomFn(dom);
+					}},
+					{path:'/pageA',enter:function(insetDomFn,parms,router){
+						var _strParms = parms ? JSON.stringify(parms) : '';
+						var dom = showToDom(router.path,router.realPath,_strParms);
+
+						insetDomFn(dom);
+					}},
+					{path:'/user/{id}/foo',enter:function(insetDomFn,parms,router){
+						var _strParms = parms ? JSON.stringify(parms) : '';
+						var dom = showToDom(router.path,router.realPath,_strParms);
+
+						insetDomFn(dom);
+					}},
+			]
+		})
+
+	</script>
+</body>
+</html>

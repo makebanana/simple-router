@@ -1,6 +1,6 @@
 
 function  Srouter(configObj){
-	if(!configObj._dom_box){
+	if(!configObj.dom_box){
 		console ? console.warn('forget add a dom for show pageHTML') : alert('forget add a dom for show pageHTML');
 		return
 	}
@@ -32,7 +32,7 @@ Srouter.prototype.packageRouter = function(router,index){
 			_query[_index] = key;
             return 'ANYKEY';
         });
-	_query.length && router['query'] = _query;
+	if(_index !== undefined){ router['query'] = _query;};
 
 	return router;
 
@@ -40,7 +40,7 @@ Srouter.prototype.packageRouter = function(router,index){
 Srouter.prototype.matchHash = function(hash){
 
 	var _arrHashParms,
-	 	_parms,
+	 	_parms = {},
 	  	_lenParms, 
 	  	_i;
 
@@ -63,14 +63,13 @@ Srouter.prototype.matchHash = function(hash){
 
 		_lenParms = _arrHashParms.length;
 
-		for(_i = 0, _i < _lenParms; _i++){
-			_parms[_lenParms[_i][0]] = _lenParms[_i][1];
+		for(_i = 0;_i < _lenParms; _i++){
+			_parms[_arrHashParms[_i].split('=')[0]] = _arrHashParms[_i].split('=')[1];
 		}
 	}
 
 	//排除了没有找到以及第一个/
-	
-	for(_j = 0; i < _lenRouter; _j++){
+	for(_j = 0; _j < _lenRouter; _j++){
 		if(this._router[_j]['realPath'].split('/').length === _realPath.split('/').length){
 			if(this._router[_j]['query']){
 				_realPath =_realPath.split('/');
@@ -94,28 +93,32 @@ Srouter.prototype.matchHash = function(hash){
 
 };
 
-Srouter.prototype.updateDom = function(domHTML){
-
-     this._dom_box.innerHTML = domHTML;
+Srouter.prototype.updateDomFn = function(){
+	var _dom =  this._dom_box;
+     
+     return function(domHTML){
+     	_dom.innerHTML = domHTML;
+     }
 
 };
 Srouter.prototype.hashRun = function(hash){
 
-		var _nextHash = location.hash;
+		var _nextHash = location.hash.substr(1);
 
 		if(_nextHash === this._current){return};
 
 		//获取将要去路由path，以及附带的参数，返回格式{index: '' path：‘’，parms：{}}
 		var _next   = this.matchHash(_nextHash);
-
+		console.log(_next.index)
 	    //获取hash改变前停留的路由在路由库中的索引
 	    var _currentIndex = this.matchHash(this._current)['index'];
 
 	    //如果上一个页面在离开时，需要清理部分函数
-	    _currentIndex !== fasle && this.router[_currentIndex]['leave'] && this.router[_currentIndex]['leave']();
+	    this._current !== '' && this._router[_currentIndex]['leave'] && this._router[_currentIndex]['leave']();
 
+	    var _fn = this.updateDomFn();
 	    //页面进入目标对象
-    	this._router[_next['index']]['enter'](this.updateDom,_next['parms']);
+    	this._router[_next['index']]['enter'](_fn,_next['parms'],this._router[_next['index']]);
 
     	//更新指针
     	this._current = _nextHash;
