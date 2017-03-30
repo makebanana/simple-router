@@ -25,13 +25,25 @@
      new Srouter({
       dom_box:document.getElementById('dom_box'),
       router:[
-          {path:'/',noFind:true,enter:function(insetDomFn,parms,router){
-
+          {path:'/',noFind:true,enter:function(insetDomFn,parms){
+					insetDomFn('<div>/</div>');
           }},
-          {path:'/pageA',enter:function(insetDomFn,parms,router){
-
+          {path:'/pageA',enter:function(insetDomFn,parms){
+					insetDomFn('<div>pageA</div>');
           }},
-          {path:'/user/{id}/foo',enter:function(insetDomFn,parms,router){
+          {path:'/user/{id}/foo',enter:function(insetDomFn,parms){
+
+          			new Promise(function(resolve, reject){
+
+          					//像一个地址请求数据并附带 parms参数内的 id:xxx
+          					//返回成功后调用resolve(responsetext),对应then;
+          					//返回失败后调用reject(new Error(this.statusText))，对应catch
+
+          				}).then(function(html){
+								insetDomFn(html);
+          				}).catch(function(error){
+								insetDomFn('<div>' + error + '</div>');
+          				})
 
           },leavel:function(){
             //do something you want when you leavel this path
@@ -40,11 +52,17 @@
   })'
 ```
 ### 参数说明
-|参数                  |       参数说明        |
-|----------------------|:---------------------:|
-|dom_box               |需要传递 需要挂载的HTML元素    |
-|router                |路由组                 |
-|router.path           |需要匹配的路由地址     |
-|router.noFind         |当未匹配到正确路由时，是否将当前路由设置为404页面|
-|router.enter          |当该路由地址进入时     |
-|router.leavel         |当该路由地址离开时     |
+|参数                  |	类型	|       说明        													|
+|:---------------------|:-----------|:----------------------------------------------------------------------|
+|dom_box               |   DOM		|**必传**    需要传递 需要挂载的HTML元素    							|
+|router                |   Array	|**必传**	路由组                 										|
+|router.path           |   String	|**必传**	需要匹配的路由地址     										|
+|router.noFind         |   Boolean  |**可选**	当未匹配到路由时的路由，默认路由组第一个，切GET类型参数屏蔽 |
+|router.enter          |   Function |**必传**	当该路由地址进入时,该方法自带传入了两个参数   				|
+|router.leavel         |   Function |**可选**	当该路由地址离开时     										|
+#### router.enter特别说明
+|argument              |	类型	|       说明        													|
+|:---------------------|:-----------|:----------------------------------------------------------------------|
+|1：insetDomFn         |   Function	|需要挂载的HTML载入到目标元素 例：insetDomFn('<div></div>')    		    |
+|2：parms              |   Obejct	|该路由匹配到时的单参数及GET类型参数：列：path：'/2333/history?page=10' , parms :{uid:'2333',page:'10'}|
+
