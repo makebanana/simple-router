@@ -155,7 +155,7 @@ class Srouter{
 
 			}
 
-	    	this._router[_next.index].enter(this._callback,_next.parms,this._router[_next.index]);
+	    	this._router[_next.index].enter(this._callback,_next.parms);
 
 	    	this._current = _next;
 

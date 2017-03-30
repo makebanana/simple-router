@@ -174,7 +174,7 @@ Srouter.prototype.hashRun = function(hash){
 		}
 
 	    //页面进入目标对象
-    	this._router[_next.index].enter(this._callback,_next.parms,this._router[_next.index]);
+    	this._router[_next.index].enter(this._callback,_next.parms);
 
     	//更新指针
     	this._current = _next;
