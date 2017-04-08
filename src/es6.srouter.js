@@ -1,3 +1,9 @@
+/**
+ * @author makebanana
+ * @version 1.0
+ * @github: https://github.com/makebanana/simple-router
+ * @email: 530547479@qq.com
+ */
 class Srouter{
 	constructor({dom_box,router}) {
 		if(!dom_box){

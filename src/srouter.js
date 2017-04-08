@@ -1,4 +1,9 @@
-
+/**
+ * @author makebanana
+ * @version 1.0
+ * @github: https://github.com/makebanana/simple-router
+ * @email: 530547479@qq.com
+ */
 function  Srouter(configObj){
 	if(!configObj.dom_box){
 		if(console){
