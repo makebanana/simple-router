@@ -61,6 +61,9 @@ Srouter.prototype.packageRouter = function(router,index){
 	return router;
 
 };
+Srouter.prototype.push = function(routerPath){
+	location.hash = routerPath;
+};
 /**
  * [matchHash 匹配改hash地址在路由库中的位置]
  * @param  {[string]} hash [需要匹配的hash值]

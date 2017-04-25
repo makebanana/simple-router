@@ -22,34 +22,37 @@
 ### 示例
   ``` javascript
 
-     new Srouter({
-      dom_box:document.getElementById('dom_box'),
-      router:[
-          {path:'/',noFind:true,enter:function(insetDomFn,parms){
-					insetDomFn('<div>/</div>');
-          }},
-          {path:'/pageA',enter:function(insetDomFn,parms){
-					insetDomFn('<div>pageA</div>');
-          }},
-          {path:'/user/{id}/foo',enter:function(insetDomFn,parms){
+    var pageRouter = new Srouter({
+        dom_box:document.getElementById('dom_box'),
+        router:[
+            {path:'/',noFind:true,enter:function(insetDomFn,parms){
+  					insetDomFn('<div>/</div>');
+            }},
+            {path:'/pageA',enter:function(insetDomFn,parms){
+  					insetDomFn('<div>pageA</div>');
+            }},
+            {path:'/user/{id}/foo',enter:function(insetDomFn,parms){
 
-          			new Promise(function(resolve, reject){
+            			new Promise(function(resolve, reject){
 
-          					//像一个地址请求数据并附带 parms参数内的 id:xxx
-          					//返回成功后调用resolve(responsetext),对应then;
-          					//返回失败后调用reject(new Error(this.statusText))，对应catch
+            					//像一个地址请求数据并附带 parms参数内的 id:xxx
+            					//返回成功后调用resolve(responsetext),对应then;
+            					//返回失败后调用reject(new Error(this.statusText))，对应catch
 
-          				}).then(function(html){
-								insetDomFn(html);
-          				}).catch(function(error){
-								insetDomFn('<div>' + error + '</div>');
-          				})
+            				}).then(function(html){
+  								insetDomFn(html);
+            				}).catch(function(error){
+  								insetDomFn('<div>' + error + '</div>');
+            				})
 
-          },leavel:function(){
-            //do something you want when you leavel this path
-          }}
-      ]
-  })'
+            },leavel:function(){
+              //do something you want when you leavel this path
+            }}
+        ]
+    });
+    
+    pageRouter.push('/pageA'); //去指定path地址
+    '
 ```
 ### 参数说明
 |参数                  |	类型	|       说明        													|

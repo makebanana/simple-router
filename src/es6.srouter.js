@@ -61,6 +61,10 @@ class Srouter{
 
 	}
 
+	push(routerPath) {
+		location.hash = routerPath;
+	}
+	
 	matchHash(hash) {
 
 		let _arrHashParms,
