@@ -15,7 +15,7 @@
 				return ['<p><span>prams: </span>',parms,'</p>'].join('');
 			}
 				
-			var aaa = new Srouter({
+			var pageRouter = new Srouter({
 				dom_box:document.getElementById('dom_box'),
 				router:[
 						{path:'/',noFind:true,enter:function(insetDomFn,parms){
@@ -37,7 +37,9 @@
 							insetDomFn(dom);
 						}},
 				]
-		})
+		});
+
+		//pageRouter.push('/pageA'); //去指定path地址
 
 	</script>
 </body>

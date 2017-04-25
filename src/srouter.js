@@ -4,7 +4,7 @@
  * @github: https://github.com/makebanana/simple-router
  * @email: 530547479@qq.com
  */
-function  Srouter(configObj){
+function Srouter(configObj){
 	if(!configObj.dom_box){
 		if(console){
 			console.warn('forget add a dom for show pageHTML');
