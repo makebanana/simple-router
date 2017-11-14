@@ -15,9 +15,6 @@
 * /list?page=10&line=20/history ， 不支持在已经有get参数形式之后再追加子路由，虽然可以实现但不支持这么做。
 * hash:/2333/history?page=10 ,path: /{page}/history => {page:'2333'}。  当单值参数作为单独路由出现，之后的所有get参数重名将被覆盖，解决方法是：好好命名。
 
-## 如何使用
-> * 兼容到**IE8**的版本，不通过工具直接在页面中引入<scrpit>
-> * **ES6**版本， 直接通过**import Srouter from './src/js/es6.srouter''**
 
 ### 示例
   ``` javascript
